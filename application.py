@@ -1,16 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-import boto3
-import boto
-from boto3.dynamodb.conditions import Key
-from botocore.client import ClientError
-from urllib.request import urlopen
-import urllib3
-import codecs
+from flask import Flask, render_template
+
 
 application = Flask(__name__)
 
 
-@application.route('/')
+@application.route('/', methods=['POST', 'GET'])
 def home_page():
     return render_template("base.html")
 
