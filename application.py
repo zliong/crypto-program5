@@ -9,6 +9,7 @@ import codecs
 
 application = Flask(__name__)
 
+
 @application.route('/')
 def home_page():
     return render_template("base.html")
