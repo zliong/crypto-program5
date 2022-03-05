@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from add_page import add_ticker
+from app.add_page import add_ticker
 
 application = Flask(__name__)
 application.register_blueprint(add_ticker)
