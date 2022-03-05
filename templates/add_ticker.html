@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+</head>
+<script type="text/javascript">
+setTimeout (function(){
+    document.getElementById('fetch_asset').disabled = null;
+    document.getElementById('spam_text').hidden = true;
+}, 5000);
+</script>
+<body>
+<form method="POST">
+    <div class="ticker">
+        {{ form.ticker.label }}
+        {{ form.ticker }}
+        <input type="submit" value="Fetch" disabled="disabled" name="fetch" id="fetch_asset"> <span id="spam_text">To prevent spam, button is disabled for a few seconds on page load and fetch.</span>
+        {% if ticker_not_filled_error %}
+            <p style="font-size:20px; color:orange;"> {{ ticker_not_filled_error }} </p>
+        {% endif %}
+        {% if invalid_ticker_error %}
+            <p style="font-size:20px; color:orange;"> {{ invalid_ticker_error }} </p>
+            <h2> Please see below steps for obtaining a valid asset ticker. </h2>
+            <p> Step 1: Visit <a href="https://messari.io/" target="_blank">Messari</a></p>
+            <p> Step 2: Locate this section on the bottom left of the screen: </p>
+            <p> <img alt="Messari Website" src="https://i.ibb.co/2cVTXj6/Screen-Shot-2022-03-05-at-13-17-47.jpeg" height="500px" width="500px"> </p>
+            <p> Step 3: Click any one of these assets or click on the next page to see more and find one you want to track. </p>
+            <p> Step 4: After finding an asset you want to track, click on it. </p>
+            <p> Step 5: Check the URL. You should see something like "https://messari.io/asset/xrp". In this case, the ticker is "xrp" (the last part of the URL). </p>
+            <p> Step 6: Copy and paste or type the correct ticker into the field and click Fetch! </p>
+        {% endif %}
+        {% if fetched_asset %}
+            {% if fetched_asset != 'Dummy,Coin,1010' %}
+                <p> {{ fetched_asset[0] }}: ${{ fetched_asset[1] }} </p>
+            <p> <input type="submit" value="Add asset to your list" name="add_asset"> </p>
+            {% else %}
+                {% if added_ticker %}
+                    <p> {{ added_ticker }} </p>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+</form>
+</body>
+</html>

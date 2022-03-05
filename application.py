@@ -1,8 +1,8 @@
 from flask import Flask, render_template
-from app.add_page import add_ticker
+from views.add_ticker_page import add_ticker_blueprint
 
 application = Flask(__name__)
-application.register_blueprint(add_ticker)
+application.register_blueprint(add_ticker_blueprint)
 
 
 @application.route('/', methods=['POST', 'GET'])
@@ -11,4 +11,4 @@ def home_page():
 
 
 if __name__ == "__main__":
-    application.run()
+    application.run(debug=True)
