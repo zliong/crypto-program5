@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+</head>
+<body>
+<form method="POST">
+    <div class="ticker">
+        {{ form.ticker.label }}
+        {{ form.ticker }}
+        <input type="submit" value="Add" name="add">
+        {% if ticker_not_filled %}
+            <p style="font-size:20px; color:orange;"> {{ ticker_not_filled }} </p>
+        {% endif %}
+    </div>
+</form>
+</body>
+</html>
