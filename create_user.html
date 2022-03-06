@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <title>Create User Page</title>
+        <h1>Create User Page</h1>
+        <br><br>
+
+
+
+     <form action =  "create_user_submit" method="POST">
+        <textarea rows="1" cols="60" name="text_email" placeholder="{{ place_one }}">{{text_email}}</textarea>
+        <br>
+        <textarea rows="1" cols="60" name="text_password" placeholder="{{ place_two }}">{{text_password}}</textarea>
+         <br>
+         <textarea rows="1" cols="60" name="text_username" placeholder="{{ place_three }}">{{text_username}}</textarea>
+         <br>
+         <input type="submit">
+    </form>
+
+
+
+<br><br>
+<button type="button" onclick="login" action = "/login/" >Create User</button>
+</body>
+</html>
