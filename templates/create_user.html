@@ -7,16 +7,20 @@
 
 
 
-     <form action =  "create_user_submit" method="POST">
+     <form action =  "create_user_submit" method="POST" enctype="multipart/form-data">
         <textarea rows="1" cols="60" name="text_email" placeholder="{{ place_one }}">{{text_email}}</textarea>
         <br>
         <textarea rows="1" cols="60" name="text_password" placeholder="{{ place_two }}">{{text_password}}</textarea>
          <br>
          <textarea rows="1" cols="60" name="text_username" placeholder="{{ place_three }}">{{text_username}}</textarea>
          <br>
-         <input type="submit">
+         <input type="file" name="filename">
+         <input type="submit" name="submit_form" value="Submit">
     </form>
 
+        <form action = "" method="POST">
+            <input type="submit" name="home" value="Home">
+        </form>
 
 
 <br><br>

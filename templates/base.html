@@ -5,22 +5,10 @@
     <h1>This is the main website</h1>
 
     <div class="topnav">
-        <a class="active" href="#">Home</a>
-        <a href="#">Login</a>
+        <a class="active" href="">Home</a>
+        <a href="">Login</a>
         <a href="{{url_for('add_user.create_user')}}">Create user</a>
     </div>
-
-    <div class="container">
-        <p>
-             <form action = "/login/" method="POST">
-                <textarea rows="1" cols="60" name="text_email" placeholder="Enter email"></textarea>
-                <br>
-                <textarea rows="1" cols="60" name="text_password" placeholder="Enter password"></textarea>
-                <input type="submit">
-            </form>
-        </p>
-    </div>
-
 
 <br><br>
 
