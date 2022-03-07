@@ -21,7 +21,7 @@ def create_user_submit():
     password = request.form['text_password']
     username = request.form['text_username']
     if email == '' or (password == '') or (username == ''):
-        return render_template("create_user.html", place_one='fill out all fields')  # If one field is empty
+        return render_template("base.html", place_one='fill out all fields')  # If one field is empty
     else:  # add user to DynamoDB                                                    #notify user
         dynamodb = boto3.resource('dynamodb')
         table = dynamodb.Table('Program5Users')  #get table
