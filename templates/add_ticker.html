@@ -8,19 +8,19 @@
 setTimeout (function(){
     document.getElementById('fetch_asset').disabled = null;
     document.getElementById('spam_text').hidden = true;
-}, 5000);
+}, 4000);
 </script>
 <body>
 <form method="POST">
-    <div class="ticker">
+    <div class="tickerdiv">
         {{ form.ticker.label }}
         {{ form.ticker }}
         <input type="submit" value="Fetch" disabled="disabled" name="fetch" id="fetch_asset"> <span id="spam_text">To prevent spam, button is disabled for a few seconds on page load and fetch.</span>
         {% if ticker_not_filled_error %}
-            <p style="font-size:20px; color:orange;"> {{ ticker_not_filled_error }} </p>
+            <p style="font-size:20px;color:orange;"> {{ ticker_not_filled_error }} </p>
         {% endif %}
         {% if invalid_ticker_error %}
-            <p style="font-size:20px; color:orange;"> {{ invalid_ticker_error }} </p>
+            <p style="font-size:20px; color:red;"> {{ invalid_ticker_error }} </p>
             <h2> Please see below steps for obtaining a valid asset ticker. </h2>
             <p> Step 1: Visit <a href="https://messari.io/" target="_blank">Messari</a></p>
             <p> Step 2: Locate this section on the bottom left of the screen: </p>
@@ -31,16 +31,50 @@ setTimeout (function(){
             <p> Step 6: Copy and paste or type the correct ticker into the field and click Fetch! </p>
         {% endif %}
         {% if fetched_asset %}
-            {% if fetched_asset != 'Dummy,Coin,1010' %}
-                <p> {{ fetched_asset[0] }}: ${{ fetched_asset[1] }} </p>
-            <p> <input type="submit" value="Add asset to your list" name="add_asset"> </p>
+            <h3> Data: </h3>
+            <textarea name="ticker_and_price" style="height:30px;border:none;outline:none;font-family:Times New Roman;font-size:20px;resize:none;" readonly>{{ fetched_asset[0] }}: ${{ fetched_asset[1] }} </textarea>
+            <br>
+            <a href="{{ fetched_asset[3] }}" target="_blank"> Explore {{ fetched_asset[0] }} price on Messari! </a>
+            <br>
+            {% if fetched_asset[2] == True %}
+                <br>
+                <input type="submit" value="Add asset to your list" name="add_asset">
+            {% elif fetched_asset[2] == 'Max Items' %}
+                <br>
+                <span> You can only have a maximum of 5 assets. </span>
             {% else %}
-                {% if added_ticker %}
-                    <p> {{ added_ticker }} </p>
-                {% endif %}
+                <br>
+                <span> This asset already exists in your list. </span>
+                <br>
+                <br>
+                <input type="submit" value="Delete asset from your list" name="delete_asset">
             {% endif %}
         {% endif %}
+<!--        {% if added_to_list %}-->
+<!--            <br>-->
+<!--            <br>-->
+<!--            {{ added_to_list }}-->
+<!--        {% endif %}-->
+<!--        {% if deleted_from_list %}-->
+<!--            <br>-->
+<!--            <br>-->
+<!--            {{ deleted_from_list }}-->
+<!--        {% endif %}-->
     </div>
+</form>
+<br>
+<form method="POST">
+    {% if item %}
+        <hr>
+        <h3> Your tracked assets: </h3>
+        {% for ticker in item %}
+            {{ ticker }}
+            <input type="submit" value="Remove {{ ticker }}" name="remove">
+            <br>
+            <br>
+        {% endfor %}
+        <input type="submit" value="Remove All" name="remove_all">
+    {% endif %}
 </form>
 </body>
 </html>
