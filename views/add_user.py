@@ -4,11 +4,13 @@ import boto3
 from werkzeug.utils import redirect
 from wtforms import Form, StringField
 from werkzeug.utils import secure_filename
+from boto3.dynamodb.conditions import Key
 
 create_user_blueprint = Blueprint('add_user', __name__, template_folder='templates') #add to blueprint
 s3_client = boto3.client('s3', region_name='us-west-1')
 bucket_name = 'program5-pictures-zach'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
 
 @create_user_blueprint.route('/', methods=['POST', 'GET'])
 def home_page():
@@ -32,6 +34,7 @@ def create_user_submit():
     file_to_upload = request.files['filename']  # name of the file in html
     if file_to_upload and check_file_type(file_to_upload.filename):
         file_name = secure_filename(file_to_upload.filename)
+        print(file_name)
         response = s3_client.put_object(ACL='public-read', Body=file_to_upload, Bucket=bucket_name, Key=file_name)
         print("file uploaded!")
         flash(f'Success - {file_to_upload} Is uploaded to {bucket_name}', 'success')
@@ -47,10 +50,21 @@ def create_user_submit():
     else:  # add user to DynamoDB                                                    #notify user
         dynamodb = boto3.resource('dynamodb', region_name='us-west-1')
         table = dynamodb.Table('Program5Users')  # get table
-        response = table.put_item(
-            Item={'email': email, 'password': password, 'username': username}
-        )  # put item into table, email, password, and username
+        response = table.scan(FilterExpression=Key('email').eq(email))
+        if len(response['Items']) == 1:
+            print('user exists!')
+            flash('User already exists!')
+            return render_template('create_user.html')
+        else:
+            response = table.put_item(
+                Item={'email': email, 'password': password, 'username': username, 'pfp': file_name}
+            )  # put item into table, email, password, and username
     return render_template("create_user.html")  # stay on same page
+
+
+def file_name_split(file_name):
+    name_arr = file_name.split('.')
+    return name_arr[0]
 
 
 def check_file_type(filename):
