@@ -38,18 +38,19 @@ def create_user_submit():
     else:
         print("file failed to upload")
         flash(f'Allowed file type are - png - jpeg - gif - jpg.Please upload proper formats...', 'danger')
-    # email = request.form['text_email']  #get user inputs
-    # password = request.form['text_password']
-    # username = request.form['text_username']
-    # if email == '' or (password == '') or (username == ''):
-    #     return render_template("create_user.html", place_one='fill out all fields')  # If one field is empty
-    # else:  # add user to DynamoDB                                                    #notify user
-    #     dynamodb = boto3.resource('dynamodb')
-    #     table = dynamodb.Table('Program5Users')  #get table
-    #     response = table.put_item(
-    #         Item={'email': email, 'password': password, 'username': username}
-    #     )          #put item into table, email, password, and username
-    return render_template("create_user.html") #stay on same page
+
+    email = request.form['text_email']  # get user inputs
+    password = request.form['text_password']
+    username = request.form['text_username']
+    if email == '' or (password == '') or (username == ''):
+        return render_template("base.html", place_one='fill out all fields')  # If one field is empty
+    else:  # add user to DynamoDB                                                    #notify user
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('Program5Users')  # get table
+        response = table.put_item(
+            Item={'email': email, 'password': password, 'username': username}
+        )  # put item into table, email, password, and username
+    return render_template("create_user.html")  # stay on same page
 
 def check_file_type(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
