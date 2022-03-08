@@ -67,7 +67,7 @@ def add_ticker():
                                                item=assets)
             else:
                 return render_template('add_ticker.html', form=form,
-                                       ticker_not_filled_error='Please fill in the ticker field.', item=assets)
+                                       ticker_not_filled_error='Please fill in the ticker/name field.', item=assets)
         elif request.form.get('add_asset') == 'Add asset to your list':
             data = request.form.get('ticker_and_price').split(': ')
             ticker = data[0]
