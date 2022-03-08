@@ -23,7 +23,7 @@ def home_page():
 def login():
     email = request.form['text_email']
     password = request.form['text_password']
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-west-1')
     table = dynamodb.Table('Program5Users')
     response = table.scan(FilterExpression=Key('email').eq(email) & Attr('password').eq(password))
     if len(response['Items']) == 0:
@@ -33,12 +33,10 @@ def login():
     return render_template("logged_in.html")
 
 
-
 @application.route('/logout', methods=['POST','GET'])
 def logout():
     session.pop('user')
     return render_template("base.html", logout='Logged out')
-
 
 
 if __name__ == "__main__":
