@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
+    <title>Tickers</title>
 </head>
 <script type="text/javascript">
 setTimeout (function(){
     document.getElementById('fetch_asset').disabled = null;
     document.getElementById('spam_text').hidden = true;
-}, 4000);
+}, 3000);
 </script>
 <body>
 <form method="POST">
@@ -17,7 +17,7 @@ setTimeout (function(){
         {{ form.ticker }}
         <input type="submit" value="Fetch" disabled="disabled" name="fetch" id="fetch_asset"> <span id="spam_text">To prevent spam, button is disabled for a few seconds on page load and fetch.</span>
         {% if ticker_not_filled_error %}
-            <p style="font-size:20px;color:orange;"> {{ ticker_not_filled_error }} </p>
+            <p style="font-size:20px;color:red;"> {{ ticker_not_filled_error }} </p>
         {% endif %}
         {% if invalid_ticker_error %}
             <p style="font-size:20px; color:red;"> {{ invalid_ticker_error }} </p>
@@ -50,22 +50,12 @@ setTimeout (function(){
                 <input type="submit" value="Delete asset from your list" name="delete_asset">
             {% endif %}
         {% endif %}
-<!--        {% if added_to_list %}-->
-<!--            <br>-->
-<!--            <br>-->
-<!--            {{ added_to_list }}-->
-<!--        {% endif %}-->
-<!--        {% if deleted_from_list %}-->
-<!--            <br>-->
-<!--            <br>-->
-<!--            {{ deleted_from_list }}-->
-<!--        {% endif %}-->
     </div>
 </form>
 <br>
 <form method="POST">
+    <hr>
     {% if item %}
-        <hr>
         <h3> Your tracked assets: </h3>
         {% for ticker in item %}
             {{ ticker }}
@@ -74,6 +64,8 @@ setTimeout (function(){
             <br>
         {% endfor %}
         <input type="submit" value="Remove All" name="remove_all">
+    {% else %}
+        <h2> Some assets you can try inserting: ETH (aka Ethereum), BTC (aka Bitcoin), LTC (aka Litecoin). </h2>
     {% endif %}
 </form>
 </body>
