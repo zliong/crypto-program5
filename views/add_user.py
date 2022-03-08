@@ -41,6 +41,7 @@ def create_user_submit():
     else:
         print("file failed to upload")
         flash(f'Allowed file type are - png - jpeg - gif - jpg.Please upload proper formats...', 'danger')
+        return render_template("create_user.html")
 
     email = request.form['text_email']  # get user inputs
     password = request.form['text_password']
