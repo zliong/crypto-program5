@@ -33,4 +33,3 @@ def user_avatar():
 
 def check_file_type(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
