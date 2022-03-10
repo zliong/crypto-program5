@@ -31,21 +31,29 @@ def create_user():
 def create_user_submit():
     print('Made it to create submit')
     print("Made it to submit file")
-    file_to_upload = request.files['filename']  # name of the file in html
-    if file_to_upload and check_file_type(file_to_upload.filename):
-        file_name = secure_filename(file_to_upload.filename)
-        print(file_name)
-        response = s3_client.put_object(ACL='public-read', Body=file_to_upload, Bucket=bucket_name, Key=file_name)
-        print("file uploaded!")
-        flash(f'Success - {file_to_upload} Is uploaded to {bucket_name}', 'success')
-    else:
-        print("file failed to upload")
-        flash(f'Allowed file type are - png - jpeg - gif - jpg.Please upload proper formats...', 'danger')
-        return render_template("create_user.html")
 
     email = request.form['text_email']  # get user inputs
     password = request.form['text_password']
     username = request.form['text_username']
+    file_to_upload = request.files['filename']  # name of the file in html
+    default = False
+    file_name = ''
+    if file_to_upload and check_file_type(file_to_upload.filename):
+        file_name = secure_filename(file_to_upload.filename)
+        print(file_name)
+        response = s3_client.put_object(ACL='public-read', Body=file_to_upload,
+                                        Bucket=bucket_name, Key=username+'_'+file_name)
+        default = False
+        print("file uploaded!")
+        flash(f'Success - {file_to_upload} Is uploaded to {bucket_name}', 'success')
+    elif not file_to_upload:
+        file_name = 'default.png'
+        default = True
+    else:
+        print("file failed to upload")
+        default = False
+        flash(f'Allowed file type are - png - jpeg - gif - jpg.Please upload proper formats...', 'danger')
+        return render_template("create_user.html")
     if email == '' or (password == '') or (username == ''):
         return render_template("base.html", place_one='fill out all fields')  # If one field is empty
     else:  # add user to DynamoDB                                                    #notify user
@@ -56,9 +64,13 @@ def create_user_submit():
             print('user exists!')
             flash('User already exists!')
             return render_template('create_user.html')
-        else:
+        elif len(response['Items']) != 1 and default is True:
             response = table.put_item(
                 Item={'email': email, 'password': password, 'username': username, 'pfp': file_name}
+            )  # put item into table, email, password, and username
+        else:
+            response = table.put_item(
+                Item={'email': email, 'password': password, 'username': username, 'pfp': username+'_'+file_name}
             )  # put item into table, email, password, and username
     return render_template("create_user.html")  # stay on same page
 

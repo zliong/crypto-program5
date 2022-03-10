@@ -33,10 +33,12 @@ def login():
     return render_template("logged_in.html")
 
 
+
 @application.route('/logout', methods=['POST','GET'])
 def logout():
     session.pop('user')
     return render_template("base.html", logout='Logged out')
+
 
 
 if __name__ == "__main__":
