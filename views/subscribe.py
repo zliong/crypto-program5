@@ -33,7 +33,7 @@ def subscribe():
         # do we have to deal with there not being any account?
         user = profiles[0]
         subscribe = False
-        if user['subscribed'] != 'False':
+        if 'subscribed' in user and user['subscribed'] != 'False':
             subscribe = True
         return render_template("subscribe.html", subscribed = subscribe)
     else:
