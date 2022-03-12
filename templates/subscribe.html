@@ -2,9 +2,18 @@
 <html>
 <body>
 <title>Program 5 - Subscribe</title>
-<h1>This is the main website</h1>
+<!-- don't show button if they are subscribed -->
+{% if not subscribed %}
 <form method="POST">
     <button type="subscribe" name="subscribe">Subscribe</button>
 </form>
+{% else %}
+<form method="POST">
+    <h1>You must except subscription in your email before unsubscribing</h1>
+    <button type="unsubscribe" name="unsubscribe">unsubscribe</button>
+</form>
+{% endif %}
+
+<!-- show unsubscribe if they are subbed -->
 </body>
 </html>
