@@ -20,11 +20,9 @@ subscribe_blueprint = Blueprint(
 
 @subscribe_blueprint.route('/subscribe', methods=['GET', 'POST'])
 def subscribe():
-    user_email = 'ejkj699@gmail.com'
+    user_email = 'euan.james.canoy@gmail.com' # change to session email!!!!!!
+    # user_email = session['user'] uncomment this when session is connected
     if request.method == "GET":
-        
-        # user_email = session['user'] uncomment this when session is connected
-
         # get status if they are subscribed
         response = table.query(
         KeyConditionExpression=Key('email').eq(user_email)
@@ -41,7 +39,7 @@ def subscribe():
                     # find a way to get the email from session
             topic = 'arn:aws:sns:us-west-2:440026663620:testTopic'
             protocol = 'Email'
-            endpoint = 'ejkj699@gmail.com'
+            endpoint = user_email
             try:
                 subscription = sns_client.subscribe(
                     TopicArn=topic, Protocol=protocol, Endpoint=endpoint, ReturnSubscriptionArn=True)
