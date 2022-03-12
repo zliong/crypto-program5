@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <title>Create User Page</title>
+        <h1>Create User Page</h1>
+        <br><br>
+
+
+
+     <form action =  "create_user_submit" method="POST" enctype="multipart/form-data">
+        <textarea rows="1" cols="60" name="text_email" placeholder="{{ place_one }}">{{text_email}}</textarea>
+        <br>
+        <textarea rows="1" cols="60" name="text_password" placeholder="{{ place_two }}">{{text_password}}</textarea>
+         <br>
+         <textarea rows="1" cols="60" name="text_username" placeholder="{{ place_three }}">{{text_username}}</textarea>
+         <br>
+         <input type="file" name="filename">
+         <input type="submit" name="submit_form" value="Submit">
+    </form>
+
+        <form action = "" method="POST">
+            <input type="submit" name="home" value="Home">
+        </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    {% block body %} {% endblock %}
+
+<br><br>
+<p><a href="{{url_for('home_page')}}">Login Page</a></p>
+</body>
+</html>

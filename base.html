@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
     <title>Program 5 - Cryptocurrency Watch List</title>
     <h1>This is the main website</h1>
 
-    <div class="topnav">
-        <a class="active" href="">Home</a>
-        <a href="">Login</a>
-        <a href="{{url_for('add_user.create_user')}}">Create user</a>
-    </div>
-       <h1>Login</h1>
+
+    <h1>Login</h1>
      <form action = "login" method="POST">
         <textarea rows="1" cols="60" name="text_email" placeholder="Enter email"></textarea>
         <br>
@@ -18,9 +13,10 @@
     </form>
     <h1>{{login_fail}}</h1>
     <h1>{{logout}}</h1>
+
 <br><br>
 
-<!--     <p><a href="{{url_for('add_user.create_user')}}">Create user</a></p>-->
+     <p><a href="{{url_for('add_user.create_user')}}">Create user</a></p>
 
 </body>
 </html>
