@@ -1,11 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="en">
+<link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Program 5 - Cryptocurrency Watch List</title>
 </head>
 <body>
+     <div class="topnav">
 
-    <p><a href="{{url_for('logout')}}">Logout</a></p>
+        <a class="active" href="{{url_for('logged_in_page')}}">Home</a>
+        <a href="{{url_for('logout')}}">Logout</a>
+        <img class="rounded-circle article-img" src="{{ usr_avatar }}" id="img">
+        <b>Username:  {{user}}</b>
+     </div>
 </body>
 </html>

@@ -5,8 +5,6 @@ from werkzeug.utils import redirect
 from wtforms import Form, StringField
 from werkzeug.utils import secure_filename
 from boto3.dynamodb.conditions import Key
-import re
-
 
 create_user_blueprint = Blueprint('add_user', __name__, template_folder='templates') #add to blueprint
 s3_client = boto3.client('s3', region_name='us-west-1')
@@ -35,15 +33,6 @@ def create_user_submit():
     print("Made it to submit file")
 
     email = request.form['text_email']  # get user inputs
-    try:                                        #test format
-        SepEmail = email.split("@")             #seperate with @
-        if re.search(".",SepEmail[1]) is None:  #none is returned if there is an  @ but no .
-           flash('Incorrect Email Format!')
-           return render_template('create_user.html')    #exit
-    except:
-        flash('Incorrect Email Format!')            #case where there is no @
-        return render_template('create_user.html')
-    
     password = request.form['text_password']
     username = request.form['text_username']
     file_to_upload = request.files['filename']  # name of the file in html

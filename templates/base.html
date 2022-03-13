@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
-    <title>Program 5 - Cryptocurrency Watch List</title>
-    <h1>This is the main website</h1>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='function.js') }}"
+    ></script>
+    <title>{% block title %}Program 5 - Cryptocurrency Watch List{% endblock %}</title>
 
     <div class="topnav">
-        <a class="active" href="">Home</a>
-        <a href="">Login</a>
+
+        <a class="active" href="{{url_for('home_page')}}">Home</a>
         <a href="{{url_for('add_user.create_user')}}">Create user</a>
+
     </div>
        <h1>Login</h1>
      <form action = "login" method="POST">
