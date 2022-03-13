@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
 <body>
+<link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
 <title>Program 5 - Subscribe</title>
+<div class="topnav">
+    <a href="">Home</a>
+    <a class="active" href="{{url_for('subscribe.subscribe')}}">Subscribe</a>
+    <a href="{{url_for('add_ticker_page.add_ticker')}}">Add ticker</a>
+</div>
 <!-- don't show button if they are subscribed -->
 {% if not subscribed %}
-<h1>This is a email notification list for btc, ltc, eth. updates are provided every 15 mins and you are notified of the price changes. Click subscribe to join the list...</h1>
+<h1 style="color: white">This is a email notification list for btc, ltc, eth. updates are provided every 15 mins and you are notified of the price changes. Click subscribe to join the list...</h1>
 <form method="POST">
     <button type="subscribe" name="subscribe">Subscribe</button>
 </form>
 {% else %}
 <form method="POST">
-    <h1>Click the unsubscribe button to leave the list</h1>
-    <h2>You must except subscription in your email before unsubscribing</h2>
+    <h1 style="color: white">Click the unsubscribe button to leave the list</h1>
+    <h2 style="color: white">You must except subscription in your email before unsubscribing</h2>
     <button type="unsubscribe" name="unsubscribe">unsubscribe</button>
 </form>
 {% endif %}
