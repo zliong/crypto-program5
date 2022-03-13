@@ -4,12 +4,14 @@
 <title>Program 5 - Subscribe</title>
 <!-- don't show button if they are subscribed -->
 {% if not subscribed %}
+<h1>This is a email notification list for btc, ltc, eth. updates are provided every 15 mins and you are notified of the price changes. Click subscribe to join the list...</h1>
 <form method="POST">
     <button type="subscribe" name="subscribe">Subscribe</button>
 </form>
 {% else %}
 <form method="POST">
-    <h1>You must except subscription in your email before unsubscribing</h1>
+    <h1>Click the unsubscribe button to leave the list</h1>
+    <h2>You must except subscription in your email before unsubscribing</h2>
     <button type="unsubscribe" name="unsubscribe">unsubscribe</button>
 </form>
 {% endif %}

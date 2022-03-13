@@ -64,11 +64,10 @@ def subscribe():
                 return f"""<h1> {mes} <h1>
                             <a href="/subscribe">go back to subscribe<a>"""
             except ClientError:
-                print("here")
                 logger.exception(
                     "Couldn't subscribe %s %s to topic %s.", protocol, endpoint, topic)
-                print("couldn't do the subscription")
-                return "subscribed"
+                return f"""<h1>Could not subscribe go back to the subscribe page to try again<h1>
+                            <a href="/subscribe">go back to subscribe/unsubscribe page<a>"""
         else:
             response = table.query(
                 KeyConditionExpression=Key('email').eq(user_email)
