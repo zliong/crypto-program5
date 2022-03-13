@@ -25,7 +25,7 @@ def get_user_list(user_email):
     for profile in profiles:
         for attribute in profile:
             print(attribute)
-            if attribute != 'email' and attribute != 'password':
-                tickers[profile[attribute]] = "messari.io/asset/" + attribute
+            if attribute != 'email' and attribute != 'password' and attribute != "username" and attribute != "pfp" and attribute != "subscribed":
+                tickers[attribute] = "messari.io/asset/" + attribute
          
     return jsonify(tickers)
