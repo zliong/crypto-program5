@@ -1,5 +1,5 @@
 import boto3
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, redirect, request, session, url_for
 import math
 import requests
 from wtforms import Form, StringField
@@ -10,22 +10,26 @@ class AddTicker(Form):
 
 
 add_ticker_blueprint = Blueprint('add_ticker_page', __name__, template_folder='templates')
-dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
-table = dynamodb.Table('prog5test')
+dynamodb = boto3.resource('dynamodb', region_name='us-west-1')
+table = dynamodb.Table('Program5Users')
 
 
 @add_ticker_blueprint.route('/add_ticker', methods=['POST', 'GET'])
 def add_ticker():
+    try:
+        email = session['user']
+    except KeyError:
+        return '<h1> Not logged in. </h1>'
     form = AddTicker(request.form)
     check_exists = table.get_item(
         Key={
-            'email': 'mooaz09@gmail.com'  # the logged in user
+            'email': email  # the logged in user
         }
     )
     item = check_exists['Item']
     assets = []
     for key in item:
-        if key != 'password' and key != 'username' and key != 'email':
+        if key != 'password' and key != 'username' and key != 'email' and key != 'pfp' and key != 'subscribe':
             assets.append(key)
     if request.method == 'POST':
         if request.form.get('fetch') == 'Fetch' and form.validate():
@@ -74,7 +78,7 @@ def add_ticker():
             cur_price = str(data[1])[1:].replace(',', '').strip()
             table.update_item(
                 Key={
-                    'email': 'mooaz09@gmail.com'
+                    'email': email
                 },
                 UpdateExpression=f'SET {ticker} = :ticker',
                 ExpressionAttributeValues={
@@ -87,7 +91,7 @@ def add_ticker():
             ticker = data[0]
             table.update_item(
                 Key={
-                    'email': 'mooaz09@gmail.com'
+                    'email': email
                 },
                 UpdateExpression=f'REMOVE {ticker}'
             )
@@ -96,7 +100,7 @@ def add_ticker():
             for asset in assets:
                 table.update_item(
                     Key={
-                        'email': 'mooaz09@gmail.com'
+                        'email': email
                     },
                     UpdateExpression=f'REMOVE {asset}'
                 )
@@ -105,7 +109,7 @@ def add_ticker():
             ticker = request.form.get('remove').split()[1]
             table.update_item(
                 Key={
-                    'email': 'mooaz09@gmail.com'
+                    'email': email
                 },
                 UpdateExpression=f'REMOVE {ticker}'
             )
