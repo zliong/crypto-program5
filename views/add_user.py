@@ -15,7 +15,7 @@ class CreateUser(Form):
 
 create_user_blueprint = Blueprint('add_user', __name__, template_folder='templates')
 s3_client = boto3.client('s3', region_name='us-west-1')
-bucket_name = '436-cloud-comptuting-2'
+bucket_name = 'program5-pictures-zach'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 

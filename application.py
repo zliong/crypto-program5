@@ -47,9 +47,9 @@ def home_page():
             return render_template("base.html", login_fail='Invalid email/username or password.', form=form)
         else:
             if response['Items'][0].get('pfp') is None:
-                session['pfp'] = 'https://436-cloud-comptuting-2.s3.us-west-1.amazonaws.com/accountpicture.png'
+                session['pfp'] = 'https://program5-pictures-zach.s3.us-west-1.amazonaws.com/accountpicture.png'
             else:
-                session['pfp'] = 'https://436-cloud-comptuting-2.s3.us-west-1.amazonaws.com/' + \
+                session['pfp'] = 'https://program5-pictures-zach.s3.us-west-1.amazonaws.com/' + \
                                  response['Items'][0].get('pfp')
             session['user_name'] = response['Items'][0].get('username')
             session['user'] = response['Items'][0].get('email')

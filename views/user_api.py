@@ -30,6 +30,6 @@ def get_user_list(user):
             elif attribute != 'password' and attribute != 'subscribed' and attribute != 'pfp':
                 json_attributes[attribute] = profile[attribute]
             elif attribute == 'pfp':
-                json_attributes[attribute] = 'https://436-cloud-comptuting-2.s3.us-west-1.amazonaws.com/' + \
+                json_attributes[attribute] = 'https://program5-pictures-zach.s3.us-west-1.amazonaws.com/' + \
                                              profile[attribute]
     return jsonify(user_info=json_attributes, tracked_cryptos=tickers)
