@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, render_template
-from .core import limiter
 import boto3
 from boto3.dynamodb.conditions import Key
 
@@ -8,7 +7,6 @@ dynamodb = boto3.resource('dynamodb', region_name='us-west-1')
 table = dynamodb.Table(__TableName__)
 
 web_api_blueprint = Blueprint('user_api', __name__, template_folder='templates')
-limiter.limit('200 per day')(web_api_blueprint)
 
 
 @web_api_blueprint.route('/api/v1/', methods=['GET'])
