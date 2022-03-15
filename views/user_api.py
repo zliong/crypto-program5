@@ -30,4 +30,7 @@ def get_user_list(user):
             elif attribute == 'pfp':
                 json_attributes[attribute] = 'https://program5-pictures-zach.s3.us-west-1.amazonaws.com/' + \
                                              profile[attribute]
-    return jsonify(user_info=json_attributes, tracked_cryptos=tickers)
+    if len(json_attributes) > 0:
+        return jsonify(status_code=200, user_info=json_attributes, tracked_cryptos=tickers)
+    else:
+        return jsonify(status_code=404, msg="User does not exist.")

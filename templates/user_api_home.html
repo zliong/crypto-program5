@@ -16,10 +16,11 @@
     <br><br>The format of the GET requests looks like this:
     <br><br>GET http://program5-env.eba-6cvwcsgc.us-west-1.elasticbeanstalk.com/api/v1/information/{EMAIL | USERNAME}
     <br><br>For example: GET http://program5-env.eba-6cvwcsgc.us-west-1.elasticbeanstalk.com/api/v1/information/dimpsey<br><br>
-    The information you get back will look something like this:
+    The information you get back for a successful 200 response will look something like this:
     <pre>
         <code style="font-size:15px">
 {
+    "status_code": 200,
     "tracked_cryptos": {
         "BTC": "https://www.messari.io/asset/BTC",
         "ETH": "https://www.messari.io/asset/ETH",
@@ -33,8 +34,9 @@
 }
         </code>
     </pre>
-        A next step is to add endpoints for programmatically adding Cryptos to your user list without interacting with
-        the UI (a POST request)!
+        Note that there is also a 404 response for an account that does not exist.
+        <br><br>The next step is to add endpoints for programmatically adding Cryptos to your user list without
+        interacting with the UI (a POST request)!
     </h4>
 </body>
 </html>
