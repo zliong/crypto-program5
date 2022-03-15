@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
-    <title>Crypto Tracker</title>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='function.js') }}"
+    ></script>
+    <title>{% block title %}Program 5 - Cryptocurrency Watch List{% endblock %}</title>
 
     <div class="topnav">
+
         <a class="active" href="{{url_for('home_page')}}">Home</a>
         <a href="{{url_for('add_user.create_user')}}">Create user</a>
-        <a href="{{url_for('user_api.api_home')}}">Web API</a>
+
     </div>
-    <body>
        <h1>Login</h1>
-     <form method="POST">
-        <div class="login">
-             {{ form.email_username.label }}
-             <br>
-             {{ form.email_username }}
-             <br><br>
-             {{ form.password.label }}
-             <br>
-             {{ form.password }}
-            <br><br>
-            <input type="submit">
-         </div>
+     <form action = "login" method="POST">
+        <textarea rows="1" cols="60" name="text_email" placeholder="Enter email"></textarea>
+        <br>
+        <textarea rows="1" cols="60" name="text_password" placeholder="Enter password"></textarea>
+        <input type="submit">
     </form>
-    <h3 style="color:white">{{login_fail}}</h3>
+    <h1>{{login_fail}}</h1>
+    <h1>{{logout}}</h1>
 <br><br>
+
+<!--     <p><a href="{{url_for('add_user.create_user')}}">Create user</a></p>-->
 
 </body>
 </html>
