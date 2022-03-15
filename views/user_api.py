@@ -14,7 +14,7 @@ def api_home():
     return render_template('user_api_home.html')
 
 
-@web_api_blueprint.route('/api/v1/<user>/', methods=['GET'])
+@web_api_blueprint.route('/api/v1/information/<user>/', methods=['GET'])
 def get_user_list(user):
     response = table.scan(FilterExpression=(Key('email').eq(user) | Key('username').eq(user)))
     profiles = response['Items']
