@@ -4,29 +4,29 @@
     <link rel="icon" type="image/x-icon" href="https://icons.iconarchive.com/icons/pauloruberto/custom-round-yosemite/256/Bitcoin-icon.png">
     <div class="topnav">
         <a href="{{url_for('home_page')}}">Home</a>
-        <a class="active" href="{{url_for('add_user.create_user')}}">Create user</a>
+        <a class="active" href="{{url_for('add_user.create_user')}}">Create Account</a>
         <a href="{{url_for('user_api.api_home')}}">Web API</a>
     </div>
-    <title>Create User</title>
+    <title>Create Account</title>
 
     <body style="color:white">
-    <h1>Create User</h1>
+    <h1>Create Account</h1>
 
      <form method="POST" enctype="multipart/form-data">
          <div class="create_user">
              {{ form.email.label }}
-             <br>
+             <br><br>
              {{ form.email }}
              <br><br>
              {{ form.username.label }}
-             <br>
+             <br><br>
              {{ form.username }}
              <br><br>
              {{ form.password.label }}
-             <br>
+             <br><br>
              {{ form.password }}
              <br><br>
-             Profile Picture (Optional): <input type="file" name="filename">
+             Profile Picture (Optional): <br><br> <input type="file" name="filename">
              <br><br>
              <input type="submit" name="submit_form" value="Submit">
          </div>

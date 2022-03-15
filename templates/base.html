@@ -6,19 +6,20 @@
 
     <div class="topnav">
         <a class="active" href="{{url_for('home_page')}}">Home</a>
-        <a href="{{url_for('add_user.create_user')}}">Create user</a>
+        <a href="{{url_for('add_user.create_user')}}">Create Account</a>
         <a href="{{url_for('user_api.api_home')}}">Web API</a>
     </div>
     <body>
+    <h4 style="color:white">Welcome to Crypto Tracker! Here, you will be able to view various Cryptocurrencies and also be able to track them. Create an account or login below to get started! </h4>
        <h1>Login</h1>
      <form method="POST">
         <div class="login">
              {{ form.email_username.label }}
-             <br>
+             <br><br>
              {{ form.email_username }}
              <br><br>
              {{ form.password.label }}
-             <br>
+             <br><br>
              {{ form.password }}
             <br><br>
             <input type="submit">
