@@ -12,11 +12,6 @@ bucket_name = 'program5-pictures-zach'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 
-@create_user_blueprint.route('/', methods=['POST', 'GET'])
-def home_page():
-    return render_template('base.html')
-
-
 @create_user_blueprint.route('/create_user', methods=['POST', 'GET'])
 def create_user():
     if request.method == 'POST':
