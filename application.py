@@ -49,6 +49,7 @@ def home_page():
             else:
                 session['pfp'] = 'https://program5-pictures-zach.s3.us-west-1.amazonaws.com/' + \
                                  response['Items'][0].get('pfp')
+            print(session['pfp'])
             session['user_name'] = response['Items'][0].get('username')
             session['user'] = response['Items'][0].get('email')
         return redirect(url_for('logged_in_page'))
