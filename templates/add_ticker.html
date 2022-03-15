@@ -36,8 +36,7 @@ setTimeout (function(){
         {% endif %}
         {% if fetched_asset %}
             <h3> Data: </h3>
-            <textarea name="ticker_and_price" style="height:25px;width:150px;border:none;outline:none;font-family:Times New Roman;font-size:20px;resize:none;" readonly>{{ fetched_asset[0] }}: ${{ fetched_asset[1] }} </textarea>
-            <br>
+            <textarea name="ticker_and_price" style="color:white;background-color:Transparent;border-color:Transparent;outline:none;font-family:Times New Roman;font-size:20px;resize:none;" readonly>{{ fetched_asset[0] }}: ${{ fetched_asset[1] }} </textarea>
             <br>
             <a href="{{ fetched_asset[3] }}" style="color:green" target="_blank"> Explore {{ fetched_asset[0] }} price on Messari! </a>
             <br>

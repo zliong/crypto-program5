@@ -42,7 +42,7 @@ def home_page():
         response = table.scan(FilterExpression=(Key('email').eq(email_username) | Key('username').eq(email_username))
                               & Attr('password').eq(password))
         if len(response['Items']) == 0:
-            return render_template("base.html", login_fail='Invalid email/username or password.', form=form)
+            return render_template('base.html', login_fail='Invalid email/username or password.', form=form)
         else:
             if response['Items'][0].get('pfp') is None:
                 session['pfp'] = 'https://program5-pictures-zach.s3.us-west-1.amazonaws.com/accountpicture.png'
@@ -104,4 +104,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    application.run()
+    application.run(debug=True)

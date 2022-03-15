@@ -9,8 +9,10 @@ from boto3.dynamodb.conditions import Key
 
 class CreateUser(Form):
     email = StringField('Email:', validators=[wtforms.validators.InputRequired()])
-    username = StringField('Username:', validators=[wtforms.validators.InputRequired()])
-    password = PasswordField('Password:', validators=[wtforms.validators.InputRequired()])
+    username = StringField('Username:', validators=[wtforms.validators.InputRequired(),
+                                                    wtforms.validators.Length(min=3)])
+    password = PasswordField('Password:', validators=[wtforms.validators.InputRequired(),
+                                                      wtforms.validators.Length(min=5)])
 
 
 create_user_blueprint = Blueprint('add_user', __name__, template_folder='templates')
@@ -40,7 +42,7 @@ def create_user():
             file_name = 'default.png'
             default = True
         else:
-            flash('Allowed file type are - png - jpeg - gif - jpg. Please upload proper formats...')
+            flash('Please upload proper formats. Allowed file type are - png - jpeg - gif - jpg.')
             return render_template("create_user.html", form=form)
         if email == '' or password == '' or username == '':
             return render_template("base.html", place_one='fill out all fields')
@@ -49,11 +51,11 @@ def create_user():
             table = dynamodb.Table('Program5Users')
             response = table.scan(FilterExpression=Key('username').eq(username))
             if response['Items']:
-                flash('Username already exists!')
+                flash('Username already exists.')
                 return render_template('create_user.html', form=form)
             response = table.scan(FilterExpression=Key('email').eq(email))
             if response['Items']:
-                flash('Email already exists!')
+                flash('Email already exists.')
                 return render_template('create_user.html', form=form)
             elif len(response['Items']) != 1 and default is True:
                 table.put_item(
@@ -65,8 +67,7 @@ def create_user():
                     Item={'email': email, 'password': password, 'username': username,
                           'pfp': username + '_' + file_name, 'subscribed': 'False'}
                 )
-            flash('User has successfully been created!')
-        return render_template('create_user.html', form=form)
+            return render_template('create_user.html', form=form, created='User has successfully been created!')
     return render_template('create_user.html', form=form)
 
 

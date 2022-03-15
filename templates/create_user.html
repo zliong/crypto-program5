@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" type="image/x-icon" href="https://icons.iconarchive.com/icons/pauloruberto/custom-round-yosemite/256/Bitcoin-icon.png">
     <div class="topnav">
@@ -14,29 +19,32 @@
 
      <form method="POST" enctype="multipart/form-data">
          <div class="create_user">
-             {{ form.email.label }}
+             <b> {{ form.email.label }} </b>
              <br><br>
-             {{ form.email }}
+             {{ form.email(size=40) }}
              <br><br>
-             {{ form.username.label }}
+             <b> {{ form.username.label }} </b>
              <br><br>
-             {{ form.username }}
+             {{ form.username(size=40) }}
              <br><br>
-             {{ form.password.label }}
+             <b> {{ form.password.label }} </b>
              <br><br>
-             {{ form.password }}
+             {{ form.password(size=40) }}
              <br><br>
              Profile Picture (Optional): <br><br> <input type="file" name="filename">
              <br><br>
-             <input type="submit" name="submit_form" value="Submit">
+             <input type="submit" name="submit_form" value="Create Account">
          </div>
          {% with messages = get_flashed_messages() %}
           {% if messages %}
             {% for message in messages %}
-                <h3 style="color:white"> {{ message }} </h3>
+                <h3 style="color:red"> {{ message }} </h3>
             {% endfor %}
           {% endif %}
         {% endwith %}
+        {% if created %}
+            <h3 style="color:green"> {{ created }} </h3>
+        {% endif %}
     </form>
 </body>
 </html>

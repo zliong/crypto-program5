@@ -14,18 +14,18 @@
        <h1>Login</h1>
      <form method="POST">
         <div class="login">
-             {{ form.email_username.label }}
+             <b> {{ form.email_username.label }} </b>
              <br><br>
-             {{ form.email_username }}
+             {{ form.email_username(size=40) }}
              <br><br>
-             {{ form.password.label }}
+             <b> {{ form.password.label }} </b>
              <br><br>
-             {{ form.password }}
+             {{ form.password(size=40) }}
             <br><br>
-            <input type="submit">
+            <input type="submit" value="Login">
          </div>
     </form>
-    <h3 style="color:white">{{login_fail}}</h3>
+    <h3 style="color:red">{{login_fail}}</h3>
 <br><br>
 
 </body>
