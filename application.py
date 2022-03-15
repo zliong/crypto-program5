@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from views.add_user import create_user_blueprint
-from views.add_user_avatar import create_user_avatar_blueprint
 from views.add_ticker_page import add_ticker_blueprint
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
@@ -10,7 +9,6 @@ from datetime import timedelta
 application = Flask(__name__)
 application.secret_key = '153205090'
 application.register_blueprint(create_user_blueprint)
-application.register_blueprint(create_user_avatar_blueprint)
 application.register_blueprint(add_ticker_blueprint)
 application.permanent_session_lifetime = timedelta(minutes=90)
 user = {"username": "123", "password": "123"}
