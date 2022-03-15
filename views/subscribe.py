@@ -1,10 +1,8 @@
 from flask import Blueprint, render_template, request, session
 import boto3
-import logging
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 
-logger = logging.getLogger(__name__)
 sns_client = boto3.client('sns', region_name='us-west-1')
 __TableName__ = 'Program5Users'
 dynamodb = boto3.resource('dynamodb', region_name='us-west-1')
@@ -39,8 +37,6 @@ def subscribe():
             try:
                 subscription = sns_client.subscribe(TopicArn=topic, Protocol=protocol, Endpoint=endpoint,
                                                     ReturnSubscriptionArn=True)
-                print(subscription)
-                logger.info("Subscribed %s %s to topic %s.", protocol, endpoint, topic)
                 dynamodb_client.update_item(
                     TableName=__TableName__,
                     Key={
@@ -61,8 +57,6 @@ def subscribe():
                 return f"""<h1> {mes} <h1>
                             <a href="/subscribe">Go back.<a>"""
             except ClientError:
-                logger.exception(
-                    "Couldn't subscribe %s %s to topic %s.", protocol, endpoint, topic)
                 return f"""<h1>Could not subscribe, please go back to the subscribe page to try again.<h1>
                             <a href="/subscribe">Go back.<a>"""
         else:
@@ -96,8 +90,3 @@ def subscribe():
                 return """<h1> You cannot unsubscribe at this time. Please confirm the subscription sent to your email 
                                before unsubscribing<h1>
                           <a href="/subscribe">Go back.<a>"""
-
-
-@subscribe_blueprint.route('/subscribe_confirmation/<page>', methods=['GET'])
-def subscribe_confirmation():
-    return "<h1>{}<h1>".format()
