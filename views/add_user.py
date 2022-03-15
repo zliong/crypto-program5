@@ -30,7 +30,7 @@ def create_user():
         password = form.password.data.strip()
         regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
         if not re.fullmatch(regex, email):
-            flash('Invalid email')
+            flash('Invalid email format.')
             return render_template('create_user.html', form=form)
         file_to_upload = request.files['filename']
         if file_to_upload and check_file_type(file_to_upload.filename):

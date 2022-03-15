@@ -103,5 +103,5 @@ def logout():
     return redirect(url_for('home_page'))
 
 
-if __name__ == "__main__":
-    application.run(debug=True)
+if __name__ == '__main__':
+    application.run()
