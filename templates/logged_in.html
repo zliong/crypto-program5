@@ -6,13 +6,35 @@
     <meta charset="UTF-8">
     <title>Program 5 - Cryptocurrency Watch List</title>
 </head>
-<body>
+<script type="text/javascript">
+setTimeout (function(){
+    document.getElementById('refresh_btn').disabled = null;
+    document.getElementById('spam_text').hidden = true;
+}, 20000);
+</script>
+<body style="color:white">
      <div class="topnav">
-
-        <a class="active" href="{{url_for('logged_in_page')}}">Home</a>
-        <a href="{{url_for('logout')}}">Logout</a>
-        <img class="rounded-circle article-img" src="{{ usr_avatar }}" id="img">
-        <b>Username:  {{user}}</b>
+         <a class="active" href="{{url_for('logged_in_page')}}">Home</a>
+         <a href="{{url_for('add_ticker_page.add_ticker')}}">Crypto List</a>
+         <a href="{{url_for('subscribe.subscribe')}}">Subscribe</a>
+         <a href="{{url_for('user_api.api_home')}}">Web API</a>
+         <a href="{{url_for('logout')}}">Logout</a>
+         <img class="rounded-circle article-img" src="{{ user_avatar }}" id="img">
+         <b>Username: {{user}}</b>
      </div>
+{% if item %}
+        <h3> <center> Your Tracked Cryptos: </center> </h3>
+        {% for asset in item %}
+            <center> {{ asset[0] }}: ${{ asset[1] }} </center>
+            <hr>
+        {% endfor %}
+        <form method="POST">
+            <center> <input disabled="disabled" type="submit" value="Refresh Prices" name="refresh" id="refresh_btn"> </center>
+            <br>
+            <center> <span id="spam_text">To prevent spam, button is disabled for 20 seconds.</span> </center>
+        </form>
+{% else %}
+     <h2> You are not tracking any Cryptos currently. Check out "Crypto List" to add a crypto to track! </h2>
+{% endif %}
 </body>
 </html>
