@@ -21,14 +21,14 @@
 setTimeout (function(){
     document.getElementById('fetch_asset').disabled = null;
     document.getElementById('spam_text').hidden = true;
-}, 5000);
+}, 6500);
 </script>
 <body style="color:white">
 <form method="POST">
     <div class="tickerdiv">
         {{ form.ticker.label }}
         {{ form.ticker }}
-        <input type="submit" value="Fetch" disabled="disabled" name="fetch" id="fetch_asset"> <span id="spam_text">To prevent spam, button is disabled for a few seconds.</span>
+        <input type="submit" value="Fetch" disabled="disabled" name="fetch" id="fetch_asset"> <span id="spam_text">To prevent spam, button is disabled for a few seconds when clicked AND on page load.</span>
         {% if ticker_not_filled_error %}
             <p style="font-size:20px;color:red;"> {{ ticker_not_filled_error }} </p>
         {% endif %}

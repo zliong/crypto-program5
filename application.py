@@ -111,4 +111,4 @@ def invalid_route(e):
 
 
 if __name__ == '__main__':
-    application.run()
+    application.run(debug=True)

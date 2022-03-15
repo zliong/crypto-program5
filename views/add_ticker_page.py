@@ -79,7 +79,7 @@ def add_ticker():
         elif request.form.get('add_asset') == 'Add asset to your list':
             data = request.form.get('ticker_and_price').split(': ')
             ticker = data[0]
-            cur_price = str(data[1])[1:].replace(',', '').strip()
+            cur_price = str(data[1])[1:].strip()
             table.update_item(
                 Key={
                     'email': email

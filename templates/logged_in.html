@@ -10,7 +10,7 @@
 setTimeout (function(){
     document.getElementById('refresh_btn').disabled = null;
     document.getElementById('spam_text').hidden = true;
-}, 20000);
+}, 30000);
 </script>
 <body style="color:white">
      <div class="topnav">
@@ -32,7 +32,7 @@ setTimeout (function(){
         <form method="POST">
             <center> <input disabled="disabled" type="submit" value="Refresh Prices" name="refresh" id="refresh_btn"> </center>
             <br>
-            <center> <span id="spam_text">To prevent spam, button is disabled for 20 seconds.</span> </center>
+            <center> <span id="spam_text">To prevent spam, button is disabled for 30 seconds when clicked AND on page load.</span> </center>
         </form>
 {% else %}
      <h2> You are not tracking any Cryptos currently. Check out "Edit Crypto List" to add a crypto to track! </h2>
