@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template
-from core import limiter
+from .core import limiter
 import boto3
 from boto3.dynamodb.conditions import Key
 

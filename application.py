@@ -17,12 +17,10 @@ class LoginUser(Form):
     password = PasswordField('Password:', validators=[wtforms.validators.InputRequired()])
 
 
-
 application = Flask(__name__)
 application.permanent_session_lifetime = timedelta(minutes=90)
 application.secret_key = 'cXkaQKw8FWS5cc34'
 application.register_blueprint(create_user_blueprint)
-application.secret_key = 'cXkaQKw8FWS5cc34'
 application.register_blueprint(add_ticker_blueprint)
 application.register_blueprint(web_api_blueprint)
 application.register_blueprint(subscribe_blueprint)
