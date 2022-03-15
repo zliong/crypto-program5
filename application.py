@@ -3,6 +3,7 @@ from wtforms import Form, StringField, PasswordField
 from views.add_ticker_page import add_ticker_blueprint
 from views.user_api import web_api_blueprint
 from views.subscribe import subscribe_blueprint
+from views.help import help_blueprint
 from flask import Flask, render_template, request, session, redirect, url_for
 from views.add_user import create_user_blueprint
 import boto3
@@ -24,6 +25,7 @@ application.register_blueprint(create_user_blueprint)
 application.register_blueprint(add_ticker_blueprint)
 application.register_blueprint(web_api_blueprint)
 application.register_blueprint(subscribe_blueprint)
+application.register_blueprint(help_blueprint)
 dynamodb = boto3.resource('dynamodb', region_name='us-west-1')
 table = dynamodb.Table('Program5Users')
 
@@ -100,6 +102,11 @@ def logout():
     except KeyError:
         return redirect(url_for('home_page'))
     session.pop('user')
+    return redirect(url_for('home_page'))
+
+
+@application.errorhandler(404)
+def invalid_route(e):
     return redirect(url_for('home_page'))
 
 

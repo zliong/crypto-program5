@@ -19,7 +19,7 @@ def add_ticker():
     try:
         email = session['user']
     except KeyError:
-        return '<h1> Not logged in. </h1>'
+        return redirect(url_for('home_page'))
     pfp_link = session['pfp']
     form = AddTicker(request.form)
     check_exists = table.get_item(
@@ -39,7 +39,7 @@ def add_ticker():
                 fetch_req = requests.get(f'https://data.messari.io/api/v1/assets/{requested_ticker}/metrics')
                 if fetch_req.status_code != 200:
                     return render_template('add_ticker.html', form=form,
-                                           invalid_ticker_error='This ticker/name is invalid or not supported.',
+                                           invalid_ticker_error='This crypto ticker/name is invalid or not supported.',
                                            item=assets, user=session['user_name'], user_avatar=pfp_link)
                 else:
                     data = fetch_req.json()['data']
@@ -53,7 +53,8 @@ def add_ticker():
                             usd_price = usd_price + '0'
                     else:
                         return render_template('add_ticker.html', form=form,
-                                               invalid_ticker_error='This ticker/name is invalid or not supported.',
+                                               invalid_ticker_error='This crypto '
+                                                                    'ticker/name is invalid or not supported.',
                                                user=session['user_name'], user_avatar=pfp_link)
                     if item.get(str(requested_ticker).upper()) is not None or item.get(str(symbol).upper()) \
                             is not None or item.get(str(slug).upper()) is not None:

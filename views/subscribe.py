@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request, session, redirect, url_for
 import boto3
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
@@ -17,7 +17,7 @@ def subscribe():
     try:
         user_email = session['user']
     except KeyError:
-        return '<h1> Not logged in. </h1>'
+        return redirect(url_for('home_page'))
     pfp_link = session['pfp']
     if request.method == 'GET':
         response = table.query(

@@ -5,6 +5,7 @@
 <div class="topnav">
     <a href="{{url_for('home_page')}}">Home</a>
     <a class="active" href="{{url_for('add_ticker_page.add_ticker')}}">Edit Crypto List</a>
+    <a href="{{url_for('help.ticker_help')}}">Help</a>
     <a href="{{url_for('subscribe.subscribe')}}">Subscribe</a>
     <a href="{{url_for('user_api.api_home')}}">Web API</a>
     <a href="{{url_for('logout')}}">Logout</a>
@@ -70,14 +71,7 @@ setTimeout (function(){
         <input type="submit" value="Remove All" name="remove_all">
     {% else %}
         <h2> Some cryptos you can try to fetch: ETH (aka Ethereum), BTC (aka Bitcoin), LTC (aka Litecoin). </h2>
-        <h2> Still confused? Please see the below steps for finding a crypto to track! </h2>
-        <p> Step 1: Visit <a style="color:green" href="https://messari.io/" target="_blank">Messari</a></p>
-        <p> Step 2: Locate this section on the bottom left of the screen: </p>
-        <p> <img alt="Messari Website" src="https://i.ibb.co/2cVTXj6/Screen-Shot-2022-03-05-at-13-17-47.jpeg" height="500px" width="500px"> </p>
-        <p> Step 3: Click any one of these assets or click on the next page to see more and find one you want to track. </p>
-        <p> Step 4: After finding an asset you want to track, click on it. </p>
-        <p> Step 5: Check the URL. You should see something like "https://messari.io/asset/xrp". In this case, the slug is "xrp" (the last part of the URL). </p>
-        <p> Step 6: Copy and paste or type the correct slug into the field and click "Fetch"! </p>
+        <h2> Still confused? Check out the "Help" tab! </h2>
     {% endif %}
 </form>
 </body>
