@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<title>Subscribe</title>
+<html>
+<body>
+<link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
+<div class="topnav">
+    <a href="{{url_for('home_page')}}">Home</a>
+    <a href="{{url_for('add_ticker_page.add_ticker')}}">Crypto List</a>
+    <a class="active" href="{{url_for('subscribe.subscribe')}}">Subscribe</a>
+    <a href="{{url_for('user_api.api_home')}}">Web API</a>
+    <a href="{{url_for('logout')}}">Logout</a>
+    <img class="rounded-circle article-img" src="{{ user_avatar }}" id="img">
+    <b>Username: {{user}}</b>
+</div>
+<!-- don't show button if they are subscribed -->
+{% if not subscribed %}
+<h2 style="color: white">This is an Email Notification List for BTC, ETH, and LTC. Updates are provided every 15 minutes, and you will be notified of price changes. Click subscribe to join the list!</h2>
+<form method="POST">
+    <button name="subscribe">Subscribe</button>
+</form>
+{% else %}
+<form method="POST">
+    <h1 style="color: white">Click unsubscribe to leave the Email Notification List.</h1>
+    <button name="unsubscribe">Unsubscribe</button>
+</form>
+{% endif %}
+
+<!-- show unsubscribe if they are subbed -->
+</body>
+</html>
