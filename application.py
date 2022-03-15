@@ -3,6 +3,7 @@ from views.add_user import create_user_blueprint
 from views.add_user_avatar import create_user_avatar_blueprint
 from views.user_api import web_api_blueprint
 from views.subscribe import subscribe_blueprint
+from views.add_ticker_page import add_ticker_blueprint
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 from datetime import timedelta
@@ -14,6 +15,7 @@ application.register_blueprint(create_user_blueprint)
 application.register_blueprint(create_user_avatar_blueprint)
 application.register_blueprint(web_api_blueprint)
 application.register_blueprint(subscribe_blueprint)
+application.register_blueprint(add_ticker_blueprint)
 application.permanent_session_lifetime = timedelta(minutes=90)
 user = {"username": "123", "password": "123"}
 application.secret_key = 'cXkaQKw8FWS5cc34'
