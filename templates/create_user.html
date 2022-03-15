@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
+    <div class="topnav">
+        <a href="{{url_for('home_page')}}">Home</a>
+        <a class="active" href="{{url_for('add_user.create_user')}}">Create user</a>
+        <a href="{{url_for('user_api.api_home')}}">Web API</a>
+    </div>
+    <title>Create User</title>
 
-    <body>
-        <title>Create User Page</title>
-        <h1>Create User Page</h1>
-        <br><br>
+    <body style="color:white">
+    <h1>Create User Page</h1>
 
-
-
-     <form action =  "create_user_submit" method="POST" enctype="multipart/form-data">
-        <textarea rows="1" cols="60" name="text_email" placeholder="{{ place_one }}">{{text_email}}</textarea>
-        <br>
-        <textarea rows="1" cols="60" name="text_password" placeholder="{{ place_two }}">{{text_password}}</textarea>
-         <br>
-         <textarea rows="1" cols="60" name="text_username" placeholder="{{ place_three }}">{{text_username}}</textarea>
-         <br>
-         <input type="file" name="filename">
-         <input type="submit" name="submit_form" value="Submit">
+     <form method="POST" enctype="multipart/form-data">
+         <div class="create_user">
+             {{ form.email.label }}
+             <br>
+             {{ form.email }}
+             <br><br>
+             {{ form.username.label }}
+             <br>
+             {{ form.username }}
+             <br><br>
+             {{ form.password.label }}
+             <br>
+             {{ form.password }}
+             <br><br>
+             Profile Picture (Optional): <input type="file" name="filename">
+             <br><br>
+             <input type="submit" name="submit_form" value="Submit">
+         </div>
+         {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+                <h3 style="color:white"> {{ message }} </h3>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
     </form>
-
-        <form action = "" method="POST">
-            <input type="submit" name="home" value="Back to Home">
-        </form>
-
-
-<br><br>
 </body>
 </html>
