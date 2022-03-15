@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet"  href="{{ url_for('static', filename='css/style.css') }}">
+<div class="topnav">
+    <a href="{{url_for('home_page')}}">Home</a>
+    <a class="active" href="{{url_for('add_ticker_page.add_ticker')}}">Crypto List</a>
+    <a href="{{url_for('subscribe.subscribe')}}">Subscribe</a>
+    <a href="{{url_for('user_api.api_home')}}">Web API</a>
+    <a href="{{url_for('logout')}}">Logout</a>
+    <img class="rounded-circle article-img" src="{{ user_avatar }}" id="img">
+    <b>Username: {{user}}</b>
+</div>
+<br>
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto List</title>
+</head>
+<script type="text/javascript">
+setTimeout (function(){
+    document.getElementById('fetch_asset').disabled = null;
+    document.getElementById('spam_text').hidden = true;
+}, 5000);
+</script>
+<body style="color:white">
+<form method="POST">
+    <div class="tickerdiv">
+        {{ form.ticker.label }}
+        {{ form.ticker }}
+        <input type="submit" value="Fetch" disabled="disabled" name="fetch" id="fetch_asset"> <span id="spam_text">To prevent spam, button is disabled for a few seconds.</span>
+        {% if ticker_not_filled_error %}
+            <p style="font-size:20px;color:red;"> {{ ticker_not_filled_error }} </p>
+        {% endif %}
+        {% if invalid_ticker_error %}
+            <p style="font-size:20px; color:red;"> {{ invalid_ticker_error }} </p>
+        {% endif %}
+        {% if fetched_asset %}
+            <h3> Data: </h3>
+            <textarea name="ticker_and_price" style="height:25px;width:150px;border:none;outline:none;font-family:Times New Roman;font-size:20px;resize:none;" readonly>{{ fetched_asset[0] }}: ${{ fetched_asset[1] }} </textarea>
+            <br>
+            <br>
+            <a href="{{ fetched_asset[3] }}" style="color:green" target="_blank"> Explore {{ fetched_asset[0] }} price on Messari! </a>
+            <br>
+            {% if fetched_asset[2] == True %}
+                <br>
+                <input type="submit" value="Add asset to your list" name="add_asset">
+            {% elif fetched_asset[2] == 'Max Items' %}
+                <br>
+                <span> You can only have a maximum of 5 assets. </span>
+            {% else %}
+                <br>
+                <span> This asset already exists in your list. </span>
+                <br>
+                <br>
+                <input type="submit" value="Delete asset from your list" name="delete_asset">
+            {% endif %}
+        {% endif %}
+    </div>
+</form>
+<br>
+<form method="POST">
+    <hr>
+    {% if item %}
+        <h3> Your Tracked Cryptos: </h3>
+        {% for ticker in item %}
+            {{ ticker }}
+            <input type="submit" value="Remove {{ ticker }}" name="remove">
+            <br>
+            <br>
+        {% endfor %}
+        <input type="submit" value="Remove All" name="remove_all">
+    {% else %}
+        <h2> Some cryptos you can try to fetch: ETH (aka Ethereum), BTC (aka Bitcoin), LTC (aka Litecoin). </h2>
+        <h2> Still confused? Please see the below steps for finding a crypto to track! </h2>
+        <p> Step 1: Visit <a style="color:green" href="https://messari.io/" target="_blank">Messari</a></p>
+        <p> Step 2: Locate this section on the bottom left of the screen: </p>
+        <p> <img alt="Messari Website" src="https://i.ibb.co/2cVTXj6/Screen-Shot-2022-03-05-at-13-17-47.jpeg" height="500px" width="500px"> </p>
+        <p> Step 3: Click any one of these assets or click on the next page to see more and find one you want to track. </p>
+        <p> Step 4: After finding an asset you want to track, click on it. </p>
+        <p> Step 5: Check the URL. You should see something like "https://messari.io/asset/xrp". In this case, the slug is "xrp" (the last part of the URL). </p>
+        <p> Step 6: Copy and paste or type the correct slug into the field and click "Fetch"! </p>
+    {% endif %}
+</form>
+</body>
+</html>
